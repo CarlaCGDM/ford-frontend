@@ -1,0 +1,44 @@
+{
+    "museums":
+    [
+        {
+            "id":1,
+            "name":"Fábrica FORD",
+            "model-path":"/museums/fabricaFORD.gltf",
+            "camera-path":"/camera-paths/fabricaFORD_cameraPath.json",
+            "description":"description",
+            "author":"John Doe",
+            "license":"CC attribution",
+            "active":"true",
+            "3d-models": 
+                [
+                    {
+                        "model-id":1,
+                        "position":{"x":1,"y":0,"z":0},
+                        "scale":1
+                    },
+                    {
+                        "model-id":1,
+                        "position":{"x":3,"y":0,"z":5},
+                        "scale":1
+                    }
+                ]
+        }
+    ],
+
+    "3d-models":
+    [
+        {
+            "id":1,
+            "name":"Coche FORD",
+            "model-path":"/3d-models/cocheFord.gltf",
+            "description":"description",
+            "author":"Jane Doe",
+            "license":"CC attribution"
+        }
+    ],
+
+    "info-panels": [],
+    "environment-maps": [],
+    "users":[]
+  }
