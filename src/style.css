@@ -98,10 +98,9 @@ body
 .settings-panel
 {
     background-color: rgb(196, 196, 196);
-    height: 95%;
-    width: 95%;
+    height: 100%;
+    width: 100%;
     padding: 3vh;
-    border-radius: 3vh;
 }
 
 .label > div
@@ -136,6 +135,27 @@ body
 }
 
 .elements-grid {
+    display: flex;
+    flex-direction: row;
+}
+
+.popup-form {
+    position: absolute;
+    top: 27vh;
+    left: 5vw;
+    width: 40vw;
+    height: 60vh;
+
+    background-color: blueviolet;
+    border-radius: 1vw;
+    padding: 2vw;
+}
+
+.closeButton {
+    
+}
+
+.admin-tab {
     display: flex;
     flex-direction: row;
 }

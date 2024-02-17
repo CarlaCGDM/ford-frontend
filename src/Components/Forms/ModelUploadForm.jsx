@@ -1,4 +1,3 @@
-import { Canvas } from '@react-three/fiber'
 import { useState} from "react"
 import Axios from "axios"
 import CloudinaryUploadForm from './CloudinaryUploadForm.jsx'
@@ -8,7 +7,7 @@ import CloudinaryUploadForm from './CloudinaryUploadForm.jsx'
  * @returns 
  */
 
-export default function ModelUploadForm() {
+export default function ModelUploadForm(props) {
 
     // Data we collect from the main input form:
 
@@ -55,7 +54,7 @@ export default function ModelUploadForm() {
 
     }
     
-    return <>
+    return <div className="popup-form">
         <p>Upload 3D Model to DB</p>
 
         <label>name:<input type="text" onChange={(e) => {setName(e.target.value)}} /></label>< br />
@@ -69,5 +68,6 @@ export default function ModelUploadForm() {
         />
 
         <button onClick={uploadForm}>Confirm</button>
-    </>
+        <button className="closeButton" onClick={() => {props.closeSelf(false)}} >Cancel/Close</button>
+    </div>
 }

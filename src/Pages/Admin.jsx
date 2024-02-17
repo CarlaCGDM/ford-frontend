@@ -36,15 +36,13 @@ export default function Admin()
             <div className="settings-panel">
                     <TabSelectorPanel />
             </div>
-            
-            
         </div>
 
-        <div className="object-settings">
+        {/* <div className="object-settings">
             <div className="settings-panel">
                 < ModelUploadForm />
             </div>
-        </div>
+        </div> */}
 
         <Canvas>
             <ScrollControls pages={5} damping={0.3}>
