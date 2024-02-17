@@ -1,11 +1,9 @@
 import { Canvas } from '@react-three/fiber'
 import Experience from '../Components/Experience.jsx'
 import { ScrollControls } from '@react-three/drei'
-import ModelSelector from '../Components/ModelSelector.jsx'
 import Model from '../Components/3D Models/Model.jsx'
-import ElementSelectorPanel from '../Components/ElementSelectorPanel.jsx'
+import TabSelectorPanel from '../Components/AdminPanels/TabSelectorPanel.jsx'
 import ModelUploadForm from '../Components/Forms/ModelUploadForm.jsx'
-import Parent from '../Components/Utilities/Parent.jsx'
 
 export default function Admin()
 {
@@ -36,7 +34,7 @@ export default function Admin()
 
         <div className="scene-settings">
             <div className="settings-panel">
-                    <ElementSelectorPanel />
+                    <TabSelectorPanel />
             </div>
             
             

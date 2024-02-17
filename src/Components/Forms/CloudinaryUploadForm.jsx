@@ -88,7 +88,7 @@ export default function CloudinaryUploadForm(props) {
     
     return <>
         <input type="file" onChange={(e) => {setModelSelected(e.target.files[0])}} />
-        <button onClick={uploadModel}>Upload</button>
+        <button onClick={uploadModel}>Upload 3D model</button>
         <div className="model-preview-canvas">
             <Canvas ref={canvasRef} gl={{ preserveDrawingBuffer: true }}>
                 
