@@ -34,7 +34,7 @@ export default function ModelUploadForm() {
         formData.append("author", author)
         formData.append("license", license)
         formData.append("modelURL", modelURL)
-        formData.append("imageURL", imageURL)
+        formData.append("imgURL", imageURL)
 
         console.log(formData)
 

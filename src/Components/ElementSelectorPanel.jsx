@@ -34,8 +34,9 @@ export default function ElementSelectorPanel() {
 
     return <>
         {selectButtons}
-        <OneElementFromAPI />
+        {/* <OneElementFromAPI /> */}
         <AllElementsFromAPI />
-        {actionButtons}
+        {/* {actionButtons} */}
+        <button>+ Create New 3D Display</button>
     </>
 }

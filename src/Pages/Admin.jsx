@@ -1,5 +1,6 @@
 import { Canvas } from '@react-three/fiber'
 import Experience from '../Components/Experience.jsx'
+import { ScrollControls } from '@react-three/drei'
 import ModelSelector from '../Components/ModelSelector.jsx'
 import Model from '../Components/3D Models/Model.jsx'
 import ElementSelectorPanel from '../Components/ElementSelectorPanel.jsx'
@@ -44,11 +45,14 @@ export default function Admin()
         <div className="object-settings">
             <div className="settings-panel">
                 < ModelUploadForm />
-                {/* <Canvas>
-                <Experience />
-            </Canvas> */}
             </div>
         </div>
+
+        <Canvas>
+            <ScrollControls pages={5} damping={0.3}>
+                <Experience />
+            </ScrollControls>
+        </Canvas>
                 
     </div>
 

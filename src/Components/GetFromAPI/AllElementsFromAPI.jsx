@@ -18,7 +18,7 @@ export default function AllElementsFromAPI()
 
     const getElements = async () =>
     {
-        const response = await fetch('http://localhost:4000/api/environments')
+        const response = await fetch('http://localhost:4000/api/exhibits')
         const result = await response.json()
 
         setElements(result)
@@ -33,13 +33,18 @@ export default function AllElementsFromAPI()
     return <div style={{backgroundColor:"blue"}}>
         <div className="banner">list of all elements</div>
         <p>Selected is: {selectedEnvironmentId}</p>
-        <ul>
+        <div className="elements-grid">
             {
                 elements.map((element) => {
-                    return <button key={element._id}>{element.name}</button>
+                    return <>
+                    <div className="element">
+                        <img className="model-preview-image" src={element.imgURL}></img>
+                        <button key={element._id}>{element.name}</button>
+                    </div>
+                    </>
                 })
             }
-        </ul>
+        </div>
         
     </div>
 }
