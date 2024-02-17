@@ -2,8 +2,9 @@ import { Canvas } from '@react-three/fiber'
 import Experience from '../Components/Experience.jsx'
 import ModelSelector from '../Components/ModelSelector.jsx'
 import Model from '../Components/3D Models/Model.jsx'
-import CloudinaryUploadForm from '../Components/Utilities/CloudinaryUploadForm.jsx'
 import ElementSelectorPanel from '../Components/ElementSelectorPanel.jsx'
+import ModelUploadForm from '../Components/Forms/ModelUploadForm.jsx'
+import Parent from '../Components/Utilities/Parent.jsx'
 
 export default function Admin()
 {
@@ -42,8 +43,7 @@ export default function Admin()
 
         <div className="object-settings">
             <div className="settings-panel">
-                Upload 3D model to Cloudinary
-                <CloudinaryUploadForm />
+                < ModelUploadForm />
                 {/* <Canvas>
                 <Experience />
             </Canvas> */}

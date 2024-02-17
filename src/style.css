@@ -116,3 +116,13 @@ body
     border-radius: 30px;
     user-select: none;
 }
+
+.model-preview-canvas {
+    height: 300px;
+    width: 300px;
+}
+
+.model-preview-image {
+    height: 100px;
+    width: 100px;
+}

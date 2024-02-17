@@ -22,7 +22,7 @@ export default function AllElementsFromAPI()
         const result = await response.json()
 
         setElements(result)
-        console.log(result)
+        //console.log(result)
     }
 
     useEffect(() =>
@@ -36,7 +36,7 @@ export default function AllElementsFromAPI()
         <ul>
             {
                 elements.map((element) => {
-                    return <button key={element.id} onClick={setSelectedEnvironmentId}>{element.name}</button>
+                    return <button key={element._id}>{element.name}</button>
                 })
             }
         </ul>

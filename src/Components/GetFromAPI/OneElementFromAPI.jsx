@@ -9,7 +9,7 @@ export default function OneElementFromAPI()
 
     const getElements = async () =>
     {
-        const response = await fetch('http://localhost:4000/api/exhibits/65c2b8d0747fd535e760a5db')
+        const response = await fetch('http://localhost:4000/api/exhibits/65cfa3c177fed896101fde8d')
         const result = await response.json()
 
         setElement(result)
