@@ -38,8 +38,8 @@ export default function ModelPreview(props) {
             <p>Description: {props.model.description}</p>
             <p>Author: {props.model.author}</p>
             <p>License: {props.model.license}</p>
-            <button>Edit details</button>
-            <button>Delete model</button>
+            <button onClick={() => props.showEditForm(true)}>Edit details</button>
+            <button onClick={() => props.deleteElement(props.model._id)}>Delete model</button>
         </div>
     </>
 }

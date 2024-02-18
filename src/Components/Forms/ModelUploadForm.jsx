@@ -49,6 +49,7 @@ export default function ModelUploadForm(props) {
             // After the data has been uploaded to the backend:
 
             console.log(response)
+            props.showThisModal(false)
 
         })
 
@@ -68,6 +69,6 @@ export default function ModelUploadForm(props) {
         />
 
         <button onClick={uploadForm}>Confirm</button>
-        <button className="closeButton" onClick={() => {props.closeSelf(false)}} >Cancel/Close</button>
+        <button className="closeButton" onClick={() => {props.showThisModal(false)}} >Cancel/Close</button>
     </div>
 }

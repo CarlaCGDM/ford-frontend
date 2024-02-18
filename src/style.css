@@ -132,11 +132,18 @@ body
     width: 120px;
     align-items: center;
     gap: 10px;
+    border-width:2px;
+    border-style:solid;
+    border-color:black;
+    padding: 5px;
 }
 
 .elements-grid {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1vw;
+    padding: 5px;
 }
 
 .popup-form {
@@ -158,4 +165,11 @@ body
 .admin-tab {
     display: flex;
     flex-direction: row;
+}
+
+.selected {
+    background-color: blue;
+    border-width:2px;
+    border-style:solid;
+    border-color:black;
 }
