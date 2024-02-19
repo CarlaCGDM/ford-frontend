@@ -3,11 +3,12 @@ import { OrbitControls, PerspectiveCamera, useScroll } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 import { useRef, useMemo, useState, useEffect } from 'react'
 import { useFrame } from "@react-three/fiber"
+import Axios from "axios"
 
 import Museum from './3D Models/Museum.jsx'
 import path from './PathPreset01.json'
 
-export default function Experience()
+export default function Experience(props)
 {
 
     //Load curve from JSON
@@ -67,20 +68,29 @@ export default function Experience()
 
     /* Fetch data from the API */
 
-    const getElements = async () =>
+    const getSelectedEnvironment = async () =>
     {
-        const response = await fetch('http://localhost:4000/api/environments/selected')
-        const result = await response.json()
+        Axios.get(`http://localhost:4000/api/environments/selected`)
+        .then((response) => {
 
-        setElement(result)
-        console.log("API Call result:")
-        console.log(result)
+            console.log(response.data)
+
+            // Check if environment has changed
+            if (response.data._id != element._id)
+            {
+                setElement(response.data)
+            }
+
+        })
+        .catch(error => {
+            console.error(error)
+        })
     }
 
     useEffect(() =>
     {
-        getElements()
-    }, [])
+        getSelectedEnvironment()
+    }, [props.environmentId])
 
    
 

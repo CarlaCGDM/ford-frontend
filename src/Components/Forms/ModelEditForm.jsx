@@ -2,7 +2,7 @@ import { useState} from "react"
 import Axios from "axios"
 
 /**
- * Update 3D model to data to backend server for storage in DB.
+ * Update 3D model resource data in DB through backend server.
  * @returns 
  */
 
@@ -52,12 +52,16 @@ export default function ModelEditForm(props) {
     }
     
     return <div className="popup-form">
+        
         <p>Edit data of existing 3D Model</p>
 
         <label>name:<input type="text" placeholder={name} onChange={(e) => {setName(e.target.value)}} /></label>< br />
         <label>description:<input type="text" placeholder={description} onChange={(e) => {setDescription(e.target.value)}} /></label>< br />
         <label>author:<input type="text" placeholder={author} onChange={(e) => {setAuthor(e.target.value)}} /></label>< br />
         <label>license:<input type="text" placeholder={license} onChange={(e) => {setLicense(e.target.value)}} /></label>< br />
+
+        {/* TODO: Placeholder "no valid model/image URL provided" model/image. Right now this crashes the application. */}
+
         <label>modelURL:<input type="text" placeholder={modelURL} onChange={(e) => {setModelURL(e.target.value)}} /></label>< br />
         <label>imageURL:<input type="text" placeholder={imageURL} onChange={(e) => {setImageURL(e.target.value)}} /></label>< br />
         

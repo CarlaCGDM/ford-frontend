@@ -13,59 +13,102 @@ export default function ModelsTab() {
     const [showCreateNew,setShowCreateNew] = useState(false)
     const [showEdit,setShowEdit] = useState(false)
 
-    // Selected element
+    // Keeping track of the selected element
 
     const [selectedId, setSelectedId] = useState("")
 
     const handleClick = (id) => {
-        setSelectedId(id);
+        setSelectedId(id)
         getElement(id)
-    };
+    }
 
     const getSelectedClass = (id) => (selectedId === id ? "selected" : "");
 
-    // Getting response data from the API
+    // API Requests
+
+    // Get list of all elements
 
     const getElements = async () =>
     {
-        const response = await fetch('http://localhost:4000/api/exhibits')
-        const result = await response.json()
+        Axios.get(`http://localhost:4000/api/exhibits`)
+        .then((response) => {
 
-        //console.log(result)
-        setElements(result)
-        setSelectedElement(selectedElement || result[0])
-        setSelectedId(selectedId || result[0]._id)
+            // Get list of all elements
+            setElements(response.data)
+            
+            // Set current or first as selected element
+            setSelectedElement(selectedElement ? selectedElement : response.data[0])
+            setSelectedId(selectedId ? selectedId : response.data[0]._id)
+            
+            // Get selected element
+            return Axios.get(`http://localhost:4000/api/exhibits/${selectedId ? selectedId : response.data[0]._id}`)
+
+        })
+        .then((response) => {
+
+            // Fake a click on the selected element
+            setSelectedElement(response.data)
+            setSelectedId(response.data._id)
+        }
+
+        )
+        .catch(error => {
+            console.error(error)
+        })
     }
+
+    // Get one element
 
     const getElement = async (elementId) =>
     {
-        const response = await fetch(`http://localhost:4000/api/exhibits/${elementId}`)
-        const result = await response.json()
+        Axios.get(`http://localhost:4000/api/exhibits/${elementId}`)
+        .then((response) => {
 
-        //console.log(result)
-        setSelectedElement(result)
+            //console.log(result)
+            setSelectedElement(response.data)
+            setSelectedId(response.data._id)
+        }
+
+        )
+        .catch(error => {
+            console.error(error);
+        })
     }
+
+    // Delete one element
 
     const deleteElement = async (elementId) =>
     {
         Axios.delete(`http://localhost:4000/api/exhibits/${elementId}`)
         .then((response) => {
-            console.log(`Deleted post with ID ${elementId}`);
-            // After the data has been uploaded to the backend:
 
-            getElements() // Refresh
+            // Element has been deleted
+            console.log(`Deleted post with ID ${elementId}`);
+            
+            // Get new data without deleted element
+            return Axios.get(`http://localhost:4000/api/exhibits`)
+        })
+        .then((response) => {
+
+            // Refresh list of elements in view
+            setElements(response.data)
+
+            // Set first element as currently selected in view
+            setSelectedElement(response.data[0])
+            setSelectedId(response.data[0]._id)
+
         })
         .catch(error => {
             console.error(error);
         });
     }
 
-    // Displaying list of elements
+    // Display the list of elements and refresh it after an element has been created or updated
 
     useEffect(() =>
     {
         getElements()
-    }, [showCreateNew, showEdit]) // Making sure the list refreshes when we add a new model
+    }, [showCreateNew, showEdit]) // Making sure the list refreshes when we add or edit a model
 
     return <>
     <div className="admin-tab">

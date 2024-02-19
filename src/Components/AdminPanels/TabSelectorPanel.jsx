@@ -5,7 +5,7 @@ import EnvironmentsTab from "./EnvironmentsTab"
 import InfoPanelsTab from "./InfoPanelsTab"
 import LightingPresetsTab from "./LightingPresetsTab"
 
-export default function TabSelectorPanel() {
+export default function TabSelectorPanel(props) {
 
     // Keeping track of which tab is currently selected
 
@@ -21,7 +21,7 @@ export default function TabSelectorPanel() {
         </div>
 
         
-        {currentTab === "Environments" && < EnvironmentsTab />}
+        {currentTab === "Environments" && < EnvironmentsTab environmentId={props.environmentId} setEnvironmentId={(Id) => {props.setEnvironmentId(Id)}} />}
         {currentTab === "3D Models" && <ModelsTab />}
         {currentTab === "Info Panels" && <InfoPanelsTab />}
         {currentTab === "Lighting Presets" && <LightingPresetsTab />}

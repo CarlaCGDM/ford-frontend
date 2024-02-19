@@ -40,6 +40,8 @@ export default function ModelPreview(props) {
             <p>License: {props.model.license}</p>
             <button onClick={() => props.showEditForm(true)}>Edit details</button>
             <button onClick={() => props.deleteElement(props.model._id)}>Delete model</button>
+
+            {props.isEnvironment && <button onClick={() => props.useThisEnvironment(props.model._id)}>Use this environment</button>}
         </div>
     </>
 }

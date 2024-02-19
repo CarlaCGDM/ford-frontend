@@ -1,5 +1,6 @@
 import { Canvas } from '@react-three/fiber'
 import Experience from '../Components/Experience.jsx'
+import { useEffect, useState} from "react"
 import { ScrollControls } from '@react-three/drei'
 import Model from '../Components/3D Models/Model.jsx'
 import TabSelectorPanel from '../Components/AdminPanels/TabSelectorPanel.jsx'
@@ -7,18 +8,10 @@ import ModelUploadForm from '../Components/Forms/ModelUploadForm.jsx'
 
 export default function Admin()
 {
-    /**
-     * List of possible museums (later from API)
-     */
+    
+    // To be able to refresh the environment preview
 
-    const museumOptions = [
-
-        <Model path={'./presets/displays/ScenePreset01.glb'} />,
-        <Model path={'./presets/displays/ScenePreset02.glb'} />,
-        <Model path={'./presets/displays/ScenePreset03.glb'} />,
-        <Model path={'./presets/displays/ScenePreset04.glb'} />
-
-    ]
+    const [environmentId,setEnvironmentId] = useState("")
 
     return <>
 
@@ -34,19 +27,13 @@ export default function Admin()
 
         <div className="scene-settings">
             <div className="settings-panel">
-                    <TabSelectorPanel />
+                    <TabSelectorPanel environmentId={environmentId} setEnvironmentId={(Id) => {setEnvironmentId(Id)}}/>
             </div>
         </div>
 
-        {/* <div className="object-settings">
-            <div className="settings-panel">
-                < ModelUploadForm />
-            </div>
-        </div> */}
-
         <Canvas>
             <ScrollControls pages={5} damping={0.3}>
-                <Experience />
+                <Experience environmentId={environmentId}/>
             </ScrollControls>
         </Canvas>
                 
