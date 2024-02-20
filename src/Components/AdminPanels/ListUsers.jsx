@@ -1,6 +1,6 @@
 import { useEffect, useState} from "react"
 
-export default function UsersTab() {
+export default function ListUsers() {
 
     // Elements to display
     const [elements, setElements ] = useState([])

@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber'
 import { useState, useRef, useEffect } from "react"
-import { useGLTF, OrbitControls } from '@react-three/drei'
+import { Clone, useGLTF, OrbitControls } from '@react-three/drei'
 import Axios from "axios"
 
 /**
@@ -8,7 +8,7 @@ import Axios from "axios"
  * @returns 
  */
 
-export default function CloudinaryUploadForm(props) {
+export default function Upload3DModelToHostingService(props) {
 
     // Data we will get at the end of the process and send to parent:
     const [modelURL, setModelURL] = useState("")
@@ -101,7 +101,7 @@ export default function CloudinaryUploadForm(props) {
                 <color attach="background" args={["red"]} />
                 
                
-                <primitive ref={modelRef} object={ displayModel.scene } position={modelPosition} scale={modelScale}/>
+                <Clone ref={modelRef} object={ displayModel.scene } position={modelPosition} scale={modelScale}/>
                 
                 
             </Canvas>

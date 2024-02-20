@@ -1,13 +1,13 @@
 import { useState} from "react"
 import Axios from "axios"
-import CloudinaryUploadForm from './CloudinaryUploadForm.jsx'
+import Upload3DModelToHostingService from './Upload3DModelToHostingService.jsx'
 
 /**
  * Update 3D model to data to backend server for storage in DB.
  * @returns 
  */
 
-export default function ModelUploadForm(props) {
+export default function CreateNewModelResource(props) {
 
     // Data we collect from the main input form:
 
@@ -63,7 +63,7 @@ export default function ModelUploadForm(props) {
         <label>author:<input type="text" onChange={(e) => {setAuthor(e.target.value)}} /></label>< br />
         <label>license:<input type="text" onChange={(e) => {setLicense(e.target.value)}} /></label>< br />
         
-        <CloudinaryUploadForm 
+        <Upload3DModelToHostingService 
             updateModelURL={(modelURL) => setModelURL(modelURL)}
             updateImageURL={(imageURL) => setImageURL(imageURL)}
         />

@@ -1,10 +1,10 @@
 import { useEffect, useState} from "react"
-import ModelUploadForm from "../Forms/ModelUploadForm"
-import ModelPreview from "../3D Models/ModelPreview"
-import ModelEditForm from "../Forms/ModelEditForm"
+import CreateNewEnvironmentResource from "../Forms/CreateNewEnvironmentResource"
+import PreviewEnvironment from "../3D Models/PreviewEnvironment"
+import EditModelData from "../Forms/EditModelData"
 import Axios from "axios"
 
-export default function ModelsTab() {
+export default function ListEnvironments(props) {
 
     // Elements to display
 
@@ -13,24 +13,15 @@ export default function ModelsTab() {
     const [showCreateNew,setShowCreateNew] = useState(false)
     const [showEdit,setShowEdit] = useState(false)
 
-    // Keeping track of the selected element
+    // Visually highlighting the selected element
 
-    const [selectedId, setSelectedId] = useState("")
-
-    const handleClick = (id) => {
-        setSelectedId(id)
-        getElement(id)
-    }
-
-    const getSelectedClass = (id) => (selectedId === id ? "selected" : "");
+    const getSelectedClass = (id) => (props.environmentId === id ? "selected" : "");
 
     // API Requests
 
-    // Get list of all elements
-
     const getElements = async () =>
     {
-        Axios.get(`http://localhost:4000/api/exhibits`)
+        Axios.get(`http://localhost:4000/api/environments`)
         .then((response) => {
 
             // Get list of all elements
@@ -38,17 +29,17 @@ export default function ModelsTab() {
             
             // Set current or first as selected element
             setSelectedElement(selectedElement ? selectedElement : response.data[0])
-            setSelectedId(selectedId ? selectedId : response.data[0]._id)
+            props.setEnvironmentId(props.environmentId ? props.environmentId : response.data[0]._id)
             
             // Get selected element
-            return Axios.get(`http://localhost:4000/api/exhibits/${selectedId ? selectedId : response.data[0]._id}`)
+            return Axios.get(`http://localhost:4000/api/environments/${props.environmentId ? props.environmentId : response.data[0]._id}`)
 
         })
         .then((response) => {
 
             // Fake a click on the selected element
             setSelectedElement(response.data)
-            setSelectedId(response.data._id)
+            props.setEnvironmentId(response.data._id)
         }
 
         )
@@ -57,16 +48,14 @@ export default function ModelsTab() {
         })
     }
 
-    // Get one element
-
     const getElement = async (elementId) =>
     {
-        Axios.get(`http://localhost:4000/api/exhibits/${elementId}`)
+        Axios.get(`http://localhost:4000/api/environments/${elementId}`)
         .then((response) => {
 
             //console.log(result)
             setSelectedElement(response.data)
-            setSelectedId(response.data._id)
+            props.setEnvironmentId(response.data._id)
         }
 
         )
@@ -75,18 +64,16 @@ export default function ModelsTab() {
         })
     }
 
-    // Delete one element
-
     const deleteElement = async (elementId) =>
     {
-        Axios.delete(`http://localhost:4000/api/exhibits/${elementId}`)
+        Axios.delete(`http://localhost:4000/api/environments/${elementId}`)
         .then((response) => {
 
             // Element has been deleted
             console.log(`Deleted post with ID ${elementId}`);
             
             // Get new data without deleted element
-            return Axios.get(`http://localhost:4000/api/exhibits`)
+            return Axios.get(`http://localhost:4000/api/environments`)
         })
         .then((response) => {
 
@@ -95,8 +82,23 @@ export default function ModelsTab() {
 
             // Set first element as currently selected in view
             setSelectedElement(response.data[0])
-            setSelectedId(response.data[0]._id)
+            props.setEnvironmentId(response.data[0]._id)
 
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
+
+    const useEnvironment = async (elementId) =>
+    {
+        Axios.put(`http://localhost:4000/api/environments/select/${elementId}`)
+        .then((response) => {
+
+            // Element has been deleted
+            console.log(`Selected environment with ID ${elementId}`);
+            props.setEnvironmentId(response.data._Id)
+            
         })
         .catch(error => {
             console.error(error);
@@ -119,40 +121,38 @@ export default function ModelsTab() {
             <div className="elements-grid">
                 {
                     elements.map((element) => {
-
                         return <div 
                                 key={element._id} 
                                 className={`element ${getSelectedClass(element._id)}`}  
-                                onClick={() => {handleClick(element._id)}}
+                                onClick={() => {getElement(element._id)}}
                                 >
 
                                 <img className="model-preview-image" src={element.imgURL}></img>
                                 <p>{element.name}</p>
-
                         </div>
                     })
                 }
             </div>
 
-            <button onClick={() => setShowCreateNew(true)}>Upload new 3D model</button>
+            <button onClick={() => setShowCreateNew(true)}>Upload new 3D environment</button>
         
         </div>
 
         <div>
-            {/* 3D Canvas showing selected model */}
 
-            <ModelPreview 
-                    model={selectedElement} 
+            {/* 3D Canvas showing the a preview of the currently selected model */}
+            <PreviewEnvironment 
+                    model={selectedElement}
+                    useThisEnvironment={(elementId) => useEnvironment(elementId)} 
                     showEditForm={() => setShowEdit(true)}
                     deleteElement={(elementId) => deleteElement(elementId)}/>
 
-            {/* Written info for the model */}
-
         </div>
+
     </div>
-       {showCreateNew && <ModelUploadForm 
+       {showCreateNew && <CreateNewEnvironmentResource 
                         showThisModal={() => setShowCreateNew(false)}/>}
-       {showEdit && <ModelEditForm 
+       {showEdit && <EditModelData 
                         model={selectedElement} 
                         showThisModal={() => setShowEdit(false)}/>
        }

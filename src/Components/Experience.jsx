@@ -5,15 +5,48 @@ import { useRef, useMemo, useState, useEffect } from 'react'
 import { useFrame } from "@react-three/fiber"
 import Axios from "axios"
 
-import Museum from './3D Models/Museum.jsx'
+import Museum from './3D Models/Environment.jsx'
 import path from './PathPreset01.json'
 
 export default function Experience(props)
 {
 
-    //Load curve from JSON
+    // API call to get the currently selected 3D environment
+    
+    const [element, setElement ] = useState({})
+
+    const getSelectedEnvironment = async () =>
+    {
+        Axios.get(`http://localhost:4000/api/environments/selected`)
+        .then((response) => {
+
+            console.log(response.data)
+
+            // Check if environment has changed
+            if (response.data._id != element._id)
+            {
+                setElement(response.data)
+            }
+
+        })
+        .catch(error => {
+            console.error(error)
+        })
+    }
+
+    useEffect(() =>
+    {
+        getSelectedEnvironment()
+    }, [props.environmentId])
+
+
+    // Load curve from JSON as js object
+    // This should be a JSON document stored in the environment resource of the DB (element.cameraPath)
+
+    console.log ("Path from JSON: ")
     console.log(path)
 
+    // Process the path object to convert it to a 
     //Convert points to THREE.Vector3
     // const curve = new THREE.CatmullRomCurve3( path.points.map((point) => {return new THREE.Vector3(point.x,point.y,point.z)}) );
 
@@ -49,7 +82,7 @@ export default function Experience(props)
     }, [curve]);
 
 
-    // Camera
+    // Control camera with scroll
 
     const cameraGroup = useRef()
     const scroll = useScroll()
@@ -62,35 +95,7 @@ export default function Experience(props)
         cameraGroup.current.position.lerp(curPoint,delta*24)
     })
 
-    // API CALL TO GET ENVIRONMENT 3D MODEL
     
-    const [element, setElement ] = useState({})
-
-    /* Fetch data from the API */
-
-    const getSelectedEnvironment = async () =>
-    {
-        Axios.get(`http://localhost:4000/api/environments/selected`)
-        .then((response) => {
-
-            console.log(response.data)
-
-            // Check if environment has changed
-            if (response.data._id != element._id)
-            {
-                setElement(response.data)
-            }
-
-        })
-        .catch(error => {
-            console.error(error)
-        })
-    }
-
-    useEffect(() =>
-    {
-        getSelectedEnvironment()
-    }, [props.environmentId])
 
    
 

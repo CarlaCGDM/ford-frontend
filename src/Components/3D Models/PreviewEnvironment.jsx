@@ -1,13 +1,13 @@
+import { useState, useRef } from "react"
 import { Canvas } from '@react-three/fiber'
-import { useState, useRef, useEffect } from "react"
-import { useGLTF, OrbitControls } from '@react-three/drei'
+import { Clone, useGLTF, OrbitControls } from '@react-three/drei'
 
 /**
  * Display a given 3D model alongside its properties.
  * @returns 
  */
 
-export default function ModelPreview(props) {
+export default function PreviewEnvironment(props) {
 
     // Data regarding the 3D model preview:
     
@@ -19,7 +19,7 @@ export default function ModelPreview(props) {
     
     return <>
         <div className="model-preview-canvas">
-            <Canvas ref={canvasRef} gl={{ preserveDrawingBuffer: true }}>
+            <Canvas ref={canvasRef}>
                 
         
                 <directionalLight position={[1,2,3]} intensity={4.5}/>
@@ -30,7 +30,7 @@ export default function ModelPreview(props) {
                 <color attach="background" args={["red"]} />
                 
                
-                <primitive ref={modelRef} object={ displayModel.scene } position={modelPosition} scale={modelScale}/>
+                <Clone ref={modelRef} object={ displayModel.scene } position={modelPosition} scale={modelScale}/>
                 
                 
             </Canvas>
@@ -40,8 +40,7 @@ export default function ModelPreview(props) {
             <p>License: {props.model.license}</p>
             <button onClick={() => props.showEditForm(true)}>Edit details</button>
             <button onClick={() => props.deleteElement(props.model._id)}>Delete model</button>
-
-            {props.isEnvironment && <button onClick={() => props.useThisEnvironment(props.model._id)}>Use this environment</button>}
+            <button onClick={() => props.useThisEnvironment(props.model._id)}>Use this environment</button>
         </div>
     </>
 }

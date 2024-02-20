@@ -1,7 +1,7 @@
-import { useGLTF } from '@react-three/drei'
+import { Clone, useGLTF } from '@react-three/drei'
 import Model from './Model'
 
-export default function Museum({ path })
+export default function Environment({ path })
 {
 
     const model = useGLTF(path ? path : "https://res.cloudinary.com/dahr27egc/image/upload/v1706573387/hamburger_dlwxib.glb")
@@ -63,6 +63,6 @@ export default function Museum({ path })
         { floorModels }
         { wallModels }
 
-        <primitive object={ museum.model } />
+        <Clone object={ museum.model } />
     </>
 }

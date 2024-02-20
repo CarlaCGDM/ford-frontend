@@ -1,13 +1,13 @@
 import { useState} from "react"
 import Axios from "axios"
-import CloudinaryUploadForm from './CloudinaryUploadForm.jsx'
+import Upload3DModelToHostingService from './Upload3DModelToHostingService.jsx'
 
 /**
  * Update 3D model to data to backend server for storage in DB.
  * @returns 
  */
 
-export default function ModelUploadForm(props) {
+export default function CreateNewEnvironmentResource(props) {
 
     // Data we collect from the main input form:
 
@@ -41,7 +41,7 @@ export default function ModelUploadForm(props) {
 
         Axios({
             method: "post",
-            url: "http://localhost:4000/api/exhibits",
+            url: "http://localhost:4000/api/environments",
             data: formData,
             headers: { "Content-Type": "application/json" },
             }).then((response) => {
@@ -56,14 +56,14 @@ export default function ModelUploadForm(props) {
     }
     
     return <div className="popup-form">
-        <p>Upload 3D Model to DB</p>
+        <p>Upload Environment to DB</p>
 
         <label>name:<input type="text" onChange={(e) => {setName(e.target.value)}} /></label>< br />
         <label>description:<input type="text" onChange={(e) => {setDescription(e.target.value)}} /></label>< br />
         <label>author:<input type="text" onChange={(e) => {setAuthor(e.target.value)}} /></label>< br />
         <label>license:<input type="text" onChange={(e) => {setLicense(e.target.value)}} /></label>< br />
         
-        <CloudinaryUploadForm 
+        <Upload3DModelToHostingService 
             updateModelURL={(modelURL) => setModelURL(modelURL)}
             updateImageURL={(imageURL) => setImageURL(imageURL)}
         />

@@ -1,6 +1,6 @@
 import { useEffect, useState} from "react"
 
-export default function LightingPresetsTab() {
+export default function ListInfoPanels() {
 
     // Elements to display
     const [elements, setElements ] = useState([])
@@ -12,7 +12,7 @@ export default function LightingPresetsTab() {
 
     // const getElements = async () =>
     // {
-    //     const response = await fetch('http://localhost:4000/api/lightingpresets')
+    //     const response = await fetch('http://localhost:4000/api/infopanels')
     //     const result = await response.json()
 
     //     setElements(result)
@@ -27,9 +27,9 @@ export default function LightingPresetsTab() {
     // }, [])
 
     return <>
-        <p>This is the Lighting Presets tab</p>
+        <p>This is the Info Panels tab</p>
 
-        {(elements.length == 0) && <p>No Lighting Presets to display.</p>}
+        {(elements.length == 0) && <p>No Info Panels to display.</p>}
 
         <div className="elements-grid">
             {
@@ -42,6 +42,6 @@ export default function LightingPresetsTab() {
             }
         </div>
 
-        <button>Create new lighting preset</button>
+        <button>Upload new info panel</button>
     </>
 }

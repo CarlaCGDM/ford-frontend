@@ -3,8 +3,8 @@ import Experience from '../Components/Experience.jsx'
 import { useEffect, useState} from "react"
 import { ScrollControls } from '@react-three/drei'
 import Model from '../Components/3D Models/Model.jsx'
-import TabSelectorPanel from '../Components/AdminPanels/TabSelectorPanel.jsx'
-import ModelUploadForm from '../Components/Forms/ModelUploadForm.jsx'
+import TabSelectorPanel from '../Components/AdminPanels/SelectResource.jsx'
+import ModelUploadForm from '../Components/Forms/CreateNewModelResource.jsx'
 
 export default function Admin()
 {

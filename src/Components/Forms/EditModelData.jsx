@@ -6,7 +6,7 @@ import Axios from "axios"
  * @returns 
  */
 
-export default function ModelEditForm(props) {
+export default function EditModelData(props) {
 
     // Data we collect from the main input form:
 
