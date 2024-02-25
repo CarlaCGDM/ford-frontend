@@ -1,6 +1,6 @@
 import { useEffect, useState} from "react"
 import CreateNewModelResource from "../Forms/CreateNewModelResource"
-import PreviewModel from "../3D Models/PreviewModel"
+import PreviewModel from "../3D Canvases/PreviewModel"
 import EditModelData from "../Forms/EditModelData"
 import Axios from "axios"
 

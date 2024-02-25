@@ -173,3 +173,13 @@ body
     border-style:solid;
     border-color:black;
 }
+
+.admin-right-side {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.assign-resource {
+    height: 50%;
+}

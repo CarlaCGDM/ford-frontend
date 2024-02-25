@@ -1,7 +1,7 @@
 import { useEffect, useState} from "react"
 import CreateNewEnvironmentResource from "../Forms/CreateNewEnvironmentResource"
-import PreviewEnvironment from "../3D Models/PreviewEnvironment"
-import EditModelData from "../Forms/EditModelData"
+import PreviewEnvironment from "../3D Canvases/PreviewEnvironment"
+import EditEnvironmentData from "../Forms/EditEnvironmentData"
 import Axios from "axios"
 
 export default function ListEnvironments(props) {
@@ -152,7 +152,7 @@ export default function ListEnvironments(props) {
     </div>
        {showCreateNew && <CreateNewEnvironmentResource 
                         showThisModal={() => setShowCreateNew(false)}/>}
-       {showEdit && <EditModelData 
+       {showEdit && <EditEnvironmentData 
                         model={selectedElement} 
                         showThisModal={() => setShowEdit(false)}/>
        }

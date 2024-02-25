@@ -5,27 +5,27 @@ import { useRef, useMemo, useState, useEffect } from 'react'
 import { useFrame } from "@react-three/fiber"
 import Axios from "axios"
 
-import Museum from './3D Models/Environment.jsx'
-import path from './PathPreset01.json'
+import Environment from '../3D Models/Environment.jsx'
+import path from '../PathPreset01.json'
 
 export default function Experience(props)
 {
 
     // API call to get the currently selected 3D environment
     
-    const [element, setElement ] = useState({})
+    const [environment, setEnvironment ] = useState({})
 
     const getSelectedEnvironment = async () =>
     {
         Axios.get(`http://localhost:4000/api/environments/selected`)
         .then((response) => {
 
-            console.log(response.data)
+            //console.log(response.data)
 
             // Check if environment has changed
-            if (response.data._id != element._id)
+            if (response.data._id != environment._id)
             {
-                setElement(response.data)
+                setEnvironment(response.data)
             }
 
         })
@@ -41,10 +41,10 @@ export default function Experience(props)
 
 
     // Load curve from JSON as js object
-    // This should be a JSON document stored in the environment resource of the DB (element.cameraPath)
+    // This should be a JSON document stored in the environment resource of the DB (environment.cameraPath)
 
-    console.log ("Path from JSON: ")
-    console.log(path)
+    // console.log ("Path from JSON: ")
+    // console.log(path)
 
     // Process the path object to convert it to a 
     //Convert points to THREE.Vector3
@@ -100,10 +100,10 @@ export default function Experience(props)
    
 
     return <>
-
+    
         {/* Debugging */}
 
-        <Perf position="bottom-right"/>
+        <Perf position="top-left"/>
         <axesHelper args={[2]} />
 
         {/* Camera */}
@@ -119,8 +119,6 @@ export default function Experience(props)
         <directionalLight position={[1,2,3]} intensity={4.5}/>
         <ambientLight intensity={1.5} />
 
-        {/* Elements */}
-
         {/* <primitive object={ curveObject } /> */}
 
         <mesh>
@@ -135,7 +133,7 @@ export default function Experience(props)
             <meshStandardMaterial color={"black"} opacity={0.3} transparent />
         </mesh>
 
-        <Museum path={element.modelURL} />
+        <Environment path={environment.modelURL} />
         
         <mesh rotation={ [- Math.PI * 0.5,0,0] } position={ [0,0,0] }  scale={ 10 }> 
             <planeGeometry />
