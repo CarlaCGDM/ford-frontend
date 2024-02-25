@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import Experience from '../Components/Experience.jsx'
+import Experience from '../Components/3D Canvases/Experience.jsx'
 import { ScrollControls } from '@react-three/drei'
 
 export default function App() {

@@ -11,7 +11,7 @@ export default function SelectResource(props) {
 
     const [currentTab, setCurrentTab] = useState("Environments")
 
-    return <>
+    return <div className="settings-panel">
         <div>
             <button onClick={() => setCurrentTab("Environments")}>Environments</button>
             <button onClick={() => setCurrentTab("3D Models")}>3D Models</button>
@@ -26,5 +26,5 @@ export default function SelectResource(props) {
         {currentTab === "Info Panels" && <ListInfoPanels />}
         {currentTab === "Lighting Presets" && <ListLightingPresets />}
         {currentTab === "Users" && <ListUsers />}
-    </>
+    </div>
 }
