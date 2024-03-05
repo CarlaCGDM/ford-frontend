@@ -20,6 +20,8 @@ export default function CreateNewEnvironmentResource(props) {
 
     const [modelURL, setModelURL] = useState("")
     const [imageURL, setImageURL] = useState("")
+    const [floorMarkerCount, setFloorMarkerCount] = useState(0)
+    const [wallMarkerCount, setWallMarkerCount] = useState(0)
 
     // Upload data to backend:
 
@@ -34,6 +36,8 @@ export default function CreateNewEnvironmentResource(props) {
         formData.append("license", license)
         formData.append("modelURL", modelURL)
         formData.append("imgURL", imageURL)
+        formData.append("exhibits",floorMarkerCount)
+        formData.append("panels",wallMarkerCount)
 
         console.log(formData)
 
@@ -50,7 +54,6 @@ export default function CreateNewEnvironmentResource(props) {
 
             console.log(response)
             props.showThisModal(false)
-
         })
 
     }
@@ -66,6 +69,8 @@ export default function CreateNewEnvironmentResource(props) {
         <Upload3DModelToHostingService 
             updateModelURL={(modelURL) => setModelURL(modelURL)}
             updateImageURL={(imageURL) => setImageURL(imageURL)}
+            setFloorMarkerCount={(n) => setFloorMarkerCount(n)}
+            setWallMarkerCount={(n) => setWallMarkerCount(n)}
         />
 
         <button onClick={uploadForm}>Confirm</button>

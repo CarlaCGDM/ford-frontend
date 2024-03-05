@@ -3,9 +3,13 @@ import Axios from "axios"
 
 export default function ListModelSlots(props) {
 
-    // List of placeholder or current info panels that can be assigned through drag and drop
+    // List of placeholder or current 3D models displayed on the tour
 
     const [slots, setSlots] = useState([])
+
+    // Visually highlighting the selected element
+
+    const getSelectedClass = (id) => (props.slotId === id ? "selected" : "");
 
     const getSelectedEnvironment= async () =>
     {
@@ -18,7 +22,10 @@ export default function ListModelSlots(props) {
             console.log(modelSlots)
 
             // Careful! If the list is empty, it will make a call to the get all exhibits method. 
-            return Axios.get(`http://localhost:4000/api/exhibits/ids/${modelSlots.join('&')}`)
+            console.log(modelSlots)
+            if (modelSlots != "") {
+                return Axios.get(`http://localhost:4000/api/exhibits/ids/${modelSlots.join('&')}`)
+            }
         })
         .then((response) => {
             console.log("Elements from list of Ids:")
@@ -35,6 +42,12 @@ export default function ListModelSlots(props) {
         getSelectedEnvironment()
     }, [props.environmentId])
 
+    useEffect(() =>
+    {
+        console.log("slot Id changed")
+        console.log(props.slotId)
+    }, [props.slotId])
+
     // 5: Drag and drop from model list to slot
 
     // 6: Update DB info with new object
@@ -48,25 +61,31 @@ export default function ListModelSlots(props) {
 
             <div className="elements-grid">
                 {
-                    slots.map((element) => {
+                    slots.map((element,index) => {
                         if (element)
                         {
                             return <div 
-                                key={element._id} 
+                                key={index}
+                                className={`element ${getSelectedClass(index)}`} 
+                                onClick={() => {props.setSlotId(index)}} 
                                 >
 
                                 <img className="model-preview-image" src={element.imgURL}></img>
+                                <p>Slot: {index}</p>
                                 <p>{element.name}</p>
 
                             </div>
                         } else
                         {
                             return <div 
-                                key={"null"} 
+                                key={index}
+                                className={`element ${getSelectedClass(index)}`} 
+                                onClick={() => {props.setSlotId(index)}} 
                                 >
 
                                 <img className="model-preview-image" src=""></img>
-                                <p>Unassigned</p>
+                                <p>Slot: {index}</p>
+                                <p>Empty</p>
 
                             </div>
                         }

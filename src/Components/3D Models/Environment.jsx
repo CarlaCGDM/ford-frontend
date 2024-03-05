@@ -19,7 +19,9 @@ export default function Environment({ path })
     // Make a proper validator for this when you upload it to the server, or sort it in the server
 
     let index = 0
+
     model.scene.children.forEach(child => {
+        console.log("started to process model without crashing!")
         if (child.name.includes('FloorMarker'))
         {
             floorModels.push(
@@ -40,6 +42,7 @@ export default function Environment({ path })
         else 
         {
             museum.model = child
+            console.log("processed model without crashing!")
         }
     });
 

@@ -4,6 +4,7 @@ import { useEffect, useState} from "react"
 import { ScrollControls } from '@react-three/drei'
 import SelectResource from '../Components/AdminPanels/SelectResource.jsx'
 import AssignResource from '../Components/AdminPanels/AssignResource.jsx'
+import DragAndDrop from '../Components/Utilities/DragAndDrop.jsx'
 
 export default function Admin()
 {
@@ -13,6 +14,18 @@ export default function Admin()
     // To be able to refresh the environment preview
 
     const [environmentId,setEnvironmentId] = useState("")
+
+    // To be able to assign a model to a slot
+
+    const [modelSlotId,setModelSlotId] = useState("")
+    const [modelId,setModelId] = useState("")
+
+    const assignModelToSlot = async () =>
+    {
+        // Fetch the environment
+        // Update the list
+        // API call to replace ModelSlots
+    }
 
     return <>
 
@@ -26,9 +39,15 @@ export default function Admin()
 
     <div className="admin-settings">
 
-      
+        {/* <DragAndDrop /> */}
+        {/* https://freedium.cfd/https://medium.com/nmc-techblog/easy-drag-and-drop-in-react-22778b30ba37 */}
         
-        <SelectResource environmentId={environmentId} setEnvironmentId={(Id) => {setEnvironmentId(Id)}}/>
+        <SelectResource 
+            environmentId={environmentId} 
+            setEnvironmentId={(Id) => {setEnvironmentId(Id)}}
+            modelId={modelId}
+            setModelId={(Id) => {setModelSlotId(Id)}}
+        />
         
 
         <div className="admin-right-side">
@@ -39,7 +58,11 @@ export default function Admin()
                 </ScrollControls>
             </Canvas>
 
-            <AssignResource environmentId={environmentId}/>
+            <AssignResource 
+                environmentId={environmentId}
+                modelSlotId={modelSlotId}
+                setModelSlotId={(Id) => {setModelSlotId(Id)}}
+            />
 
         </div>
                 

@@ -22,6 +22,9 @@ export default function Experience(props)
 
             //console.log(response.data)
 
+            console.log("I got the new environment!")
+            console.log(response.data)
+
             // Check if environment has changed
             if (response.data._id != environment._id)
             {

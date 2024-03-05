@@ -121,6 +121,12 @@ body
     width: 200px;
 }
 
+.model-preview-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
 .model-preview-image {
     height: 100px;
     width: 100px;
@@ -182,4 +188,14 @@ body
 
 .assign-resource {
     height: 50%;
+}
+
+.pets {
+    background-color: blue;
+    height: 100%;
+}
+
+.basket {
+    background-color: red;
+    height: 100%;
 }

@@ -15,7 +15,7 @@ export default function AssignResource(props) {
             <button>Lighting Preset (TODO)</button>
         </div>
 
-        {currentTab === "3D Models" && <ListModelSlots environmentId={props.environmentId} />}
+        {currentTab === "3D Models" && <ListModelSlots environmentId={props.environmentId} slotId={props.slotId} setSlotId={props.setSlotId}/>}
         {currentTab === "Info Panels" && <ListInfoPanelSlots environmentId={props.environmentId} />}
     </div>
 }

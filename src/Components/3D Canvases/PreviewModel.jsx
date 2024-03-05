@@ -27,7 +27,7 @@ export default function PreviewModel(props) {
 
                 <OrbitControls/>
 
-                <color attach="background" args={["red"]} />
+                <color attach="background" args={["#292929"]} />
                 
 
                 <primitive ref={modelRef} object={ displayModel.scene } position={modelPosition} scale={modelScale}/>
@@ -40,6 +40,7 @@ export default function PreviewModel(props) {
             <p>License: {props.model.license}</p>
             <button onClick={() => props.showEditForm(true)}>Edit details</button>
             <button onClick={() => props.deleteElement(props.model._id)}>Delete model</button>
+            <button>Assign to selected slot</button>
         </div>
     </>
 }

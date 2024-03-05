@@ -2,6 +2,7 @@ import { Canvas } from '@react-three/fiber'
 import { useState, useRef, useEffect } from "react"
 import { Clone, useGLTF, OrbitControls } from '@react-three/drei'
 import Axios from "axios"
+import { HexColorPicker } from "react-colorful";
 
 /**
  * Update 3D model to Cloudinary alongside a generated thumbnail image amd send both URLs to parent component for storage in DB.
@@ -9,6 +10,9 @@ import Axios from "axios"
  */
 
 export default function Upload3DModelToHostingService(props) {
+
+    // Data for the color picker
+    const [customBackgroundColor, setCustomBackgroundColor] = useState("#292929")
 
     // Data we will get at the end of the process and send to parent:
     const [modelURL, setModelURL] = useState("")
@@ -55,7 +59,6 @@ export default function Upload3DModelToHostingService(props) {
             // (how to compute bounding box??)
 
             console.log(modelRef.current)
-            setModelPosition([0,-0.5,0])
 
         })
     }
@@ -83,12 +86,46 @@ export default function Upload3DModelToHostingService(props) {
         })
 
     }
+
+    const countMarkers = () =>
+    {
+        // acting on the variable "displayModel" which contains the GLTF model
+
+        let floorMarkerCount = 0
+        let wallMarkerCount = 0
+
+        // go through the children of the display model
+        // count how many wall and floor markers there are
+        // add setWallMarkerCount and setFloorMarkerCount as props form parent form
+        // send info to parent form after counting
+
+        console.log("counting the markers!")
+        console.log(displayModel)
+
+        displayModel.scene.children.forEach(child => {
+            if (child.name.includes('FloorMarker'))
+            {
+                floorMarkerCount++
+            }
+    
+            else if (child.name.includes('WallMarker'))
+            {
+                wallMarkerCount++
+            }
+        });
+
+        console.log("found " + floorMarkerCount + " floor markers" )
+        props.setFloorMarkerCount(floorMarkerCount)
+        props.setWallMarkerCount(wallMarkerCount)
+
+    }
     
     // Pass modelURL and imageURL data to parent component !! 
     
     return <>
         <input type="file" onChange={(e) => {setModelSelected(e.target.files[0])}} />
         <button onClick={uploadModel}>Upload 3D model</button>
+        <div className="model-preview-wrapper">
         <div className="model-preview-canvas">
             <Canvas ref={canvasRef} gl={{ preserveDrawingBuffer: true }}>
                 
@@ -96,9 +133,10 @@ export default function Upload3DModelToHostingService(props) {
                 <directionalLight position={[1,2,3]} intensity={4.5}/>
                 <ambientLight intensity={1.5} />
 
-                <OrbitControls/>
 
-                <color attach="background" args={["red"]} />
+                <OrbitControls enablePan={true}/>
+
+                <color attach="background" args={[customBackgroundColor]} />
                 
                
                 <Clone ref={modelRef} object={ displayModel.scene } position={modelPosition} scale={modelScale}/>
@@ -106,7 +144,12 @@ export default function Upload3DModelToHostingService(props) {
                 
             </Canvas>
         </div>
-        <button onClick={uploadImage}>Upload thumbnail image</button>
+        <HexColorPicker color={customBackgroundColor} onChange={setCustomBackgroundColor} />
+        </div>
+        <button onClick={() => {
+            uploadImage()
+            countMarkers()
+            }}>Upload thumbnail image</button>
         <img className="model-preview-image" src={imageURL}></img>
     </>
 }
