@@ -1,0 +1,14 @@
+on:
+  push:
+    branches: [main]
+    
+jobs:
+  deploy:
+    name: Deploy to Ec2 instance
+    runs-on: self-hosted
+    steps:
+      - name: TO EC2 instance
+        run: |
+          npm install
+          npm run build
+          npm run start
